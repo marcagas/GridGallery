@@ -72,7 +72,7 @@
 
 	CBPGridGallery.prototype.options = {
 		afterShowCallback:  function() {}, // triggered after the gallery is opened
-		afterNextItemCallback: 	function() {}  // triggered after the items is loaded
+		nextItemCallback: 	function() {}  // triggered after the items is loaded
 	};
 
 	CBPGridGallery.prototype._init = function() {
@@ -186,7 +186,7 @@
 
 		// trigger afterShowCallback
 		this.options.afterShowCallback(this);
-		this.options.afterNextItemCallback(this);
+		this.options.nextItemCallback(this);
 	};
 
 	CBPGridGallery.prototype._navigate = function( dir ) {
@@ -291,8 +291,8 @@
 				onEndTransitionFn();
 			}
 
-			// trigger afterNextItemCallback
-			self.options.afterNextItemCallback(self)
+			// trigger nextItemCallback
+			self.options.nextItemCallback(self)
 		};
 
 		setTimeout( slide, 25 );
