@@ -8,6 +8,17 @@
  * Copyright 2014, Codrops
  * http://www.codrops.com
  */
+
+/**
+ * TODO:
+ * 1. loop through gallery after last item
+ */
+
+/**
+ * Added the ff: Features
+ * 1. trigger afterShow callback
+ * 2. trigger beforeShow callback
+ */
 ;( function( window ) {
 	
 	'use strict';
@@ -60,6 +71,8 @@
 	}
 
 	CBPGridGallery.prototype.options = {
+		afterShowCallback:  function() {}, // triggered after the gallery is opened
+		afterNextItemCallback: 	function() {}  // triggered after the items is loaded
 	};
 
 	CBPGridGallery.prototype._init = function() {
@@ -170,6 +183,10 @@
 			var translateVal = Number( getViewportW() / 2 + this.nextItem.offsetWidth / 2 );
 			setTransform( this.nextItem, support.support3d ? 'translate3d(' + translateVal + 'px, 0, -150px)' : 'translate(' + translateVal + 'px)' );
 		}
+
+		// trigger afterShowCallback
+		this.options.afterShowCallback(this);
+		this.options.afterNextItemCallback(this);
 	};
 
 	CBPGridGallery.prototype._navigate = function( dir ) {
@@ -273,6 +290,9 @@
 			else {
 				onEndTransitionFn();
 			}
+
+			// trigger afterNextItemCallback
+			self.options.afterNextItemCallback(self)
 		};
 
 		setTimeout( slide, 25 );
